@@ -21,6 +21,12 @@ export const App: React.FC = () => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
+    if (!tempTodo) {
+      inputRef.current?.focus();
+    }
+  }, [tempTodo]);
+
+  useEffect(() => {
     if (!USER_ID) {
       return;
     }
@@ -58,7 +64,7 @@ export const App: React.FC = () => {
     return true;
   });
 
-  const handleAddTodo = (title: string, onSuccess?: () => void) => {
+  const handleAddTodo = (title: string, onSuccess: () => void) => {
     if (!title.trim()) {
       setErrorMessage('Title should not be empty');
 
@@ -81,11 +87,12 @@ export const App: React.FC = () => {
       .then(createdTodo => {
         setTodos(prev => [...prev, createdTodo]);
         setTempTodo(null);
-        onSuccess?.();
-        inputRef.current?.focus();
+        //inputRef.current?.focus();
+        onSuccess();
       })
       .catch(() => {
         setErrorMessage('Unable to add a todo');
+        setTempTodo(null);
       })
       .finally(() => {
         setIsAdding(false);

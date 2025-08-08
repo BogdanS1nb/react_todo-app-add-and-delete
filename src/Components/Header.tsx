@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import classNames from 'classnames';
 
 interface Props {
@@ -16,14 +16,9 @@ export const Header: React.FC<Props> = ({
 }) => {
   const [title, setTitle] = useState('');
 
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, [inputRef]);
-
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
+    setTitle('');
     onAdd(title, () => setTitle(''));
   };
 
