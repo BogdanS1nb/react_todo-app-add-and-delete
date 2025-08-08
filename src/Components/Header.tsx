@@ -18,7 +18,6 @@ export const Header: React.FC<Props> = ({
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    setTitle('');
     onAdd(title, () => setTitle(''));
   };
 
